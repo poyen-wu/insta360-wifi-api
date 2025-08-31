@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+option optimize_for = LITE_RUNTIME;
+
+message LkidBuf {
+    optional bytes lkid = 1;
+}
+
+message UploadBuf {
+    optional uint32 version = 1;
+    optional bytes data = 2;
+}
+
+message DevInfo {
+    optional bytes lkidbuf = 1;
+    optional bytes vender = 2;
+    optional bytes fsid = 3;
+    optional bytes ccdata = 4;
+}

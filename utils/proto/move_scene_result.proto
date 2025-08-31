@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+import "model_state.proto";
+import "move_scene_clip.proto";
+
+option objc_class_prefix = "INSPB";
+
+message MoveSceneResult {
+    MoveSceneError status = 1;
+    enum MoveSceneError {
+        SUCCESS = 0;
+        ERROR_GYRODATES_INPUT = 156;
+        ERROR_DETECT_STATUS = 157;
+        ERROR_PITCH_BEYOND = 158;
+        ERROR_TIME_SHORT = 159;
+        ERROR_OTHER = 160;
+    }
+    
+    double total_start_time = 2;
+    double total_end_time = 3;
+    repeated MoveSceneClip clips = 4;
+    
+    repeated ModelStates model_state_vec2 = 5;
+    message ModelStates {
+        repeated ModelState model_states = 1;
+    }
+    
+    double fov = 6;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+import "model_state.proto";
+
+option objc_class_prefix = "INSPB";
+
+message TrackerSection {
+    repeated ModelState state = 1;
+    double beginPosition = 2;
+    double endPosition = 3;
+}

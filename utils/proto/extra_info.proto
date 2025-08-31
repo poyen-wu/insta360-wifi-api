@@ -1,0 +1,852 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+import public "offset_state.proto";
+import public "window_crop_info.proto";
+import public "commands/editinfo_list.proto";
+
+option objc_class_prefix = "INSPB";
+
+message ExtraMetadata {
+    string serial_number = 1;
+    string camera_type = 2;
+    string fw_version = 3;
+    string file_type = 4;
+    string offset = 5;
+    string ip = 6;
+    uint64 creation_time = 7;
+    uint64 export_time = 8;
+    uint64 file_size = 9;
+    uint32 total_time = 10;
+    bytes gps = 11;
+    bytes orientation = 12;
+    
+    ExtraUserOptions user_options = 13;
+    message ExtraUserOptions {
+        string filter = 1;
+        string befilter = 2;
+        bytes euler = 3;
+        bool rm_purple = 4;
+        uint32 gyro_calibrate_mode = 5;
+        bool euler_enable = 6;
+        
+        LogoType logo_type = 7;
+        enum LogoType {
+            UNKNOWN_LOGO_TYPE = 0;
+            NO_LOGO = 1;
+            INSTA_LOGO = 2;
+        }
+        
+        string adjustFilters = 8;
+        string lut_filter = 9;
+        
+        repeated OffsetConvertState offset_convert_states = 10;
+        enum OffsetConvertState {
+            WaterProof = 0;
+            DivingWater = 1;
+            DivingAir = 2;
+            StitchOptimization = 3;
+            Protect = 4;
+            SphereProtect = 5;
+            FpvProtect = 6;
+        }
+        
+        double play_trim_recommend_timestamp = 11;
+    }
+    
+    bytes gyro = 14;
+    
+    HDR_STATE hdr_state = 15;
+    enum HDR_STATE {
+        NOT_HDR = 0;
+        WAITING_PROCESS = 1;
+        PROCESSED = 2;
+    }
+    
+    string hdr_identifier = 16;
+    string original_offset = 17;
+    
+    TriggerSource trigger_source = 18;
+    enum TriggerSource {
+        Unknown = 0;
+        CameraButton = 1;
+        RemoteControl = 2;
+        USB = 3;
+        BtRemote = 4;
+    }
+    
+    Vector2 dimension = 19;
+    message Vector2 {
+        int32 x = 1;
+        int32 y = 2;
+    }
+    
+    int32 frame_rate = 20;
+    Vector2 image_translate = 21;
+    string gamma_mode = 22;
+    
+    GyroIndex thumbnail_gyro_index = 23;
+    message GyroIndex {
+        int32 index = 1;
+        int64 timestamp = 2;
+    }
+    
+    int64 first_frame_timestamp = 24;
+    double rolling_shutter_time = 25;
+    
+    FileGroupInfo file_group_info = 26;
+    message FileGroupInfo {
+        SubMediaType type = 1;
+        uint32 index = 2;
+        string identify = 3;
+        uint32 total = 4;
+    }
+    
+    WindowCropInfo window_crop_info = 27;
+    double gyro_timestamp = 28;
+    bool is_has_gyro_timestamp = 29;
+    uint32 timelapse_interval = 30;
+    bytes gyro_calib = 31;
+    
+    EvoStatusMode evo_status_mode = 32;
+    enum EvoStatusMode {
+        UNKNOWN_STATUS_MODE = 0;
+        DEGREE180 = 1;
+        DEGREE360 = 2;
+    }
+    
+    string evo_status_id = 33;
+    string original_offset_3d = 34;
+    
+    repeated GpsSource gps_sources = 35;
+    enum GpsSource {
+        GSV = 0;
+        DASHBOARD = 1;
+        REMOTE = 2;
+    }
+    
+    int64 first_gps_timestamp = 36;
+    bytes orientation_calib = 37;
+    bool is_collected = 38;
+    uint64 recycle_time = 39;
+    uint32 total_frames = 40;
+    bool is_selfie = 41;
+    bool is_flowstate_online = 42;
+    bool is_dewarp = 43;
+    Vector2 resolution_size = 44;
+    
+    Battery_type battery_type = 45;
+    enum Battery_type {
+        THICK = 0;
+        THIN = 1;
+        VERTICAL = 2;
+    }
+    
+    Camera_Posture cam_posture = 46;
+    enum Camera_Posture {
+        CAMERA_ROTATE_0 = 0;
+        CAMERA_ROTATE_90 = 1;
+        CAMERA_ROTATE_180 = 2;
+        CAMERA_ROTATE_270 = 3;
+    }
+    
+    Image_FovType fov_type = 47;
+    enum Image_FovType {
+        FOV_TYPE_UNKNOWN = 0;
+        FOV_TYPE_WIDE = 1;
+        FOV_TYPE_LINEAR = 2;
+        FOV_TYPE_ULTRAWIDE = 3;
+        FOV_TYPE_NARROW = 4;
+        FOV_TYPE_POV = 5;
+        FOV_TYPE_LINEARPLUS = 6;
+        FOV_TYPE_LINEARHORIZON = 7;
+        FOV_TYPE_FPV = 8;
+        FOV_TYPE_SUPER = 9;
+        FOV_TYPE_TINYPLANET = 10;
+        FOV_TYPE_INFINITYWIDE = 11;
+        FOV_TYPE_360LINEARHORIZON = 12;
+        FOV_TYPE_MAX_VIEW = 13;
+        FOV_TYPE_DEWARP = 14;
+        FOV_TYPE_MEGA = 15;
+        FOV_TYPE_BULLTETIME = 16;
+        FOV_TYPE_MOSQUITO = 17;
+        FOV_TYPE_NUM = 18;
+    }
+    
+    double distance = 48;
+    double fov = 49;
+    
+    Gyro_FilterType gyro_filter_type = 50;
+    enum Gyro_FilterType {
+        GYRO_FILTER_TYPE_UNKNOWN = 0;
+        GYRO_FILTER_TYPE_BRUTE = 1;
+        GYRO_FILTER_TYPE_AKF = 2;
+    }
+    
+    GyroType gyro_type = 51;
+    enum GyroType {
+        INSDEV_IMU_TYPE_20948 = 0;
+        INSDEV_IMU_TYPE_40609 = 1;
+    }
+    
+    VideoMediaDataRotateAngle media_data_rotate_angel = 52;
+    enum VideoMediaDataRotateAngle {
+        MEDIA_DATA_ROTATE_UNKNOWN = 0;
+        MEDIA_DATA_ROTATE_ANGLE_0 = 1;
+        MEDIA_DATA_ROTATE_ANGLE_180 = 3;
+        MEDIA_DATA_ROTATE_ANGLE_90 = 6;
+        MEDIA_DATA_ROTATE_ANGLE_270 = 8;
+    }
+    
+    string offset_v2 = 53;
+    string offset_v3 = 54;
+    string original_offset_v2 = 55;
+    string original_offset_v3 = 56;
+    
+    SensorDevice focusSensor = 57;
+    enum SensorDevice {
+        SENSOR_DEVICE_UNKNOWN = 0;
+        SENSOR_DEVICE_FRONT = 1;
+        SENSOR_DEVICE_REAR = 2;
+        SENSOR_DEVICE_ALL = 3;
+    }
+    
+    ExpectOutputType expectOutputType = 58;
+    enum ExpectOutputType {
+        DEFAULT = 0;
+        INSTA_PANO = 1;
+        MULTI_CAMERA = 2;
+        ONE_TAKE = 3;
+    }
+    
+    bool timelapse_interval_in_millisecond = 59;
+    repeated float photo_rot = 60;
+    
+    AudioModeType audio_mode = 61;
+    enum AudioModeType {
+        AUDIO_MODE_UNKNOWN = 0;
+        AUDIO_MODE_FOCUS = 1;
+        AUDIO_MODE_WINDREDUCTION = 2;
+        AUDIO_MODE_360 = 3;
+        AUDIO_MODE_STEREO = 4;
+        AUDIO_MODE_EXTMICDEV = 5;
+        AUDIO_MODE_AIRPODDEV = 6;
+        AUDIO_MODE_INSALGO_FOCUS = 7;
+        AUDIO_MODE_ADAPTIVE_DENOISE = 8;
+        AUDIO_MODE_AI_WINDREDUCTION = 9;
+        AUDIO_MODE_AMBISONIC = 10;
+        AUDIO_MODE_SPEECH_ENHANCE = 11;
+        AUDIO_MODE_AIRPODDEV_FOCUS = 12;
+        AUDIO_MODE_AIRPODDEV_WINDREDUCTION = 13;
+        AUDIO_MODE_AIRPODDEV_STEREO = 14;
+        AUDIO_MODE_AIRPODDEV_EXTMICDEV = 15;
+        AUDIO_MODE_AIRPODDEV_AI_WINDREDUCTION = 16;
+        AUDIO_MODE_AIRPODDEV_TRADITION_WINDREDUCTION = 17;
+        AUDIO_MODE_AIRPODDEV_SPEECH_ENHANCE = 18;
+        AUDIO_MODE_AIRPODDEV_SPEECH_AMBISONIC = 19;
+    }
+    
+    bool is_raw_gyro = 62;
+    
+    RawCaptureType raw_capture_type = 63;
+    enum RawCaptureType {
+        RAW_CAPTURE_TYPE_OFF = 0;
+        RAW_CAPTURE_TYPE_DNG = 1;
+        RAW_CAPTURE_TYPE_RAW = 2;
+        RAW_CAPTURE_TYPE_PURESHOT = 3;
+        RAW_CAPTURE_TYPE_PURESHOT_RAW = 4;
+    }
+    
+    VideoPtsType pts_type = 64;
+    enum VideoPtsType {
+        VIDEO_PTS_UNKNOWN = 0;
+        VIDEO_PTS_MP4 = 1;
+        VIDEO_PTS_EXPOSURE_FILE = 2;
+    }
+    
+    GyroConfigInfo gyro_cfg_info = 65;
+    message GyroConfigInfo {
+        uint32 acc_range = 1;
+        uint32 gyro_range = 2;
+    }
+    
+    Lens283MType lens_283M_type1 = 66;
+    enum Lens283MType {
+        LENS_UNKNOW = 0;
+        LENS_LOW_TRANSPARENCY = 1;
+        LENS_HIGH_TRANSPARENCY = 2;
+    }
+    
+    Lens283MType lens_283M_type2 = 67;
+    OffsetState offset_states = 68;
+    repeated float q_i_uav = 69;
+    repeated float r_uav_i = 70;
+    
+    AutoClipParam auto_clip_para = 71;
+    message AutoClipParam {
+        AutoClipVersion version = 1;
+        float sample_rate = 2;
+        uint32 img_w = 3;
+        uint32 img_h = 4;
+        uint32 img_pitch = 5;
+        AutoClipDataStorage autoclip_data_storage = 6;
+        uint32 fps = 7;
+        uint32 seq_diff = 8;
+        uint32 pts_diff = 9;
+        uint32 total_frame = 10;
+        uint32 resumeNum = 11;
+        repeated int32 last_frame_id = 12;
+        uint32 direction_seq_diff = 13;
+        int64 first_cap_pts = 14;
+        uint32 apei_fps = 15;
+    }
+    
+    MetaTrackParam meta_track_para = 72;
+    message MetaTrackParam {
+        uint64 ImuDataSize = 1;
+        uint64 AAADataSize = 2;
+        uint32 Compress = 3;
+    }
+    
+    TimeScale time_scale = 73;
+    enum TimeScale {
+        TIMESCALE_1X = 0;
+        TIMESCALE_4X = 1;
+        TIMESCALE_8X = 2;
+        TIMESCALE_1_4X = 3;
+        TIMESCALE_1_8X = 4;
+    }
+    
+    HdrProcessType hdr_process_type = 74;
+    enum HdrProcessType {
+        HDR_PROCESS_EXTERNAL = 0;
+        HDR_PROCESS_INNER = 1;
+        NO_HDR = 2;
+        HDR_PROCESS_EXTERNAL_VERSION2 = 3;
+    }
+    
+    ThumbnailType thumbnail_type = 75;
+    enum ThumbnailType {
+        THUMBNAIL_TYPE_UNKNOWN = 0;
+        THUMBNAIL_TYPE_YUV = 1;
+        THUMBNAIL_TYPE_JPEG = 2;
+        THUMBNAIL_TYPE_H264 = 3;
+    }
+    
+    PureShotProcessType pureshot_process_type = 76;
+    enum PureShotProcessType {
+        PURESHOT_PROCESS_EXTERNAL = 0;
+        PURESHOT_PROCESS_INNER = 1;
+    }
+    
+    bool pre_rec_time_flag = 77;
+    
+    FrameRateAVRational frame_rate_av_rational = 78;
+    message FrameRateAVRational {
+        uint32 num = 1;
+        uint32 den = 2;
+    }
+    
+    PanoRecordType pano_record_type = 79;
+    enum PanoRecordType {
+        PANO_RECORD_TYPE_UNKNOW = 0;
+        PANO_RECORD_TYPE_SPLIT_FILE = 1;
+        PANO_RECORD_TYPE_MULTI_TRACK = 2;
+    }
+    
+    PanoRecordMultiTrackOrder pano_record_multi_track_order = 80;
+    enum PanoRecordMultiTrackOrder {
+        PANO_RECORD_TRACK_ORDER_UNKNOW = 0;
+        PANO_RECORD_TRACK_ORDER_TRACK0_STREAM10 = 1;
+        PANO_RECORD_TRACK_ORDER_TRACK0_STREAM00 = 2;
+    }
+    
+    ThumbnailStitchType thumbnail_stitch_type = 81;
+    enum ThumbnailStitchType {
+        THUMBNAIL_STITCH_TYPE_UNKNOWN = 0;
+        THUMBNAIL_STITCH_TYPE_ORIGINAL = 1;
+        THUMBNAIL_STITCH_TYPE_STITCHED = 2;
+    }
+    
+    ImageStitchType image_stitch_type = 82;
+    enum ImageStitchType {
+        IMAGE_STITCH_TYPE_UNKNOWN = 0;
+        IMAGE_STITCH_TYPE_ORIGINAL = 1;
+        IMAGE_STITCH_TYPE_STITCHED = 2;
+    }
+    
+    SceneType scene_type = 83;
+    enum SceneType {
+        SCENE_TYPE_UNKNOW = 0;
+        SCENE_TYPE_UNDER_WATER = 1;
+    }
+    
+    bool Is_Cutting_Thumbnail = 84;
+    
+    ReprocessingType reprocessing_type = 85;
+    enum ReprocessingType {
+        REPROCESSING_TYPE_UNKNOWN = 0;
+        REPROCESSING_TYPE_INSIDE = 1;
+    }
+    
+    OnlineFlowstateLevel online_flowstate_level = 86;
+    enum OnlineFlowstateLevel {
+        ONLINE_FLOWSTATE_LEVEL_UNKNOW = 0;
+        ONLINE_FLOWSTATE_LEVEL_STANDARD = 1;
+        ONLINE_FLOWSTATE_LEVEL_HIGH = 2;
+        ONLINE_FLOWSTATE_LEVEL_LOW = 3;
+        ONLINE_FLOWSTATE_LEVEL_OFF = 4;
+    }
+    
+    bool bHighLightEidted = 87;
+    
+    FileSplitType file_split_type = 88;
+    enum FileSplitType {
+        FILE_SPLIT_TYPE_UNKNOW = 0;
+        FILE_SPLIT_TYPE_NOT_SPLIT = 1;
+        FILE_SPLIT_TYPE_SPLITTED = 2;
+    }
+    
+    bool bFavorite = 89;
+    uint32 edit_version = 90;
+    repeated double q_i_wnew = 91;
+    bool bInsideEditorExport = 92;
+    uint32 total_time_ms = 93;
+    bool bContinueRecord = 94;
+    bool bPausedRecord = 95;
+    bool bTorchmode = 96;
+    
+    HdrModeType hdr_mode_type = 97;
+    enum HdrModeType {
+        HDR_MODE_UNKNOW = 0;
+        HDR_MODE_OFF = 1;
+        HDR_MODE_ON = 2;
+    }
+    
+    repeated ContinueRecordInfo continue_record_info = 98;
+    message ContinueRecordInfo {
+        int64 first_frame_timestamp = 1;
+        int64 end_frame_timestamp = 2;
+        int64 first_gps_timestamp = 3;
+        int64 end_gps_timestamp = 4;
+        int64 total_frames = 5;
+        TimeScale time_scale = 6;
+        int32 submediatype = 7;
+    }
+    
+    bool bDropFrameOccur = 99;
+    uint32 photoGroupNum = 100;
+    bool recovery = 101;
+    bool has_pb_resolution = 102;
+    Vector2 pb_resolution_size = 103;
+    
+    GuardDetectedType guard_detected_type = 104;
+    enum GuardDetectedType {
+        UNKNOW = 0;
+        A = 1;
+        S = 2;
+        OFF = 3;
+        A_S = 4;
+        ND16 = 5;
+        ND32 = 6;
+        ND64 = 7;
+    }
+    
+    CoolingShellSelectedState cooling_shell_selected_state = 105;
+    enum CoolingShellSelectedState {
+        SELECTED_UNKNOW = 0;
+        SELECTED_AUTO = 1;
+        SELECTED_ON = 2;
+        SELECTED_OFF = 3;
+    }
+    
+    CoolingShellAlgoDetectedState cooling_shell_algo_state = 106;
+    enum CoolingShellAlgoDetectedState {
+        ALGO_NONE = 0;
+        ALGO_ON = 1;
+        ALGO_OFF = 2;
+    }
+    
+    AISwitchState ai_switch_state = 107;
+    enum AISwitchState {
+        AI_SWITCH_UNKNOW = 0;
+        AI_SWITCH_OFF = 1;
+        AI_SWITCH_ON = 2;
+    }
+    
+    string pureshot_image_debug = 108;
+    
+    Material3AInfo material_3a_info = 109;
+    message Material3AInfo {
+        float ev = 1;
+        uint32 wb = 2;
+        uint32 iso = 3;
+        float shutter = 4;
+    }
+    
+    ResolutiuonType resolution_type = 110;
+    enum ResolutiuonType {
+        INS_RES_UNKNOW = 0;
+        INS_RES_PLUS = 1;
+    }
+    
+    string offset_v6 = 111;
+    string original_offset_v6 = 112;
+    uint32 interval_photo_interval_time = 113;
+    uint32 flowstate_level = 114;
+    
+    FolderInfo folder_info = 115;
+    message FolderInfo {
+        FolderType type = 1;
+        uint32 index = 2;
+        string identify = 3;
+        uint32 max_num = 4;
+    }
+    
+    bool horizon_enable = 116;
+    int32 time_zone_seconds_from_GMT = 117;
+    
+    UnderWaterModeType underwater_mode_type = 118;
+    enum UnderWaterModeType {
+        UNDER_WATER_MODE_UNKNOW = 0;
+        UNDER_WATER_MODE_OFF = 1;
+        UNDER_WATER_MODE_ON = 2;
+    }
+    
+    WaterMarkType water_mark_type = 119;
+    enum WaterMarkType {
+        WATER_MARK_TYPE_UNKNOW = 0;
+        WATER_MARK_TYPE_OFF = 1;
+        WATER_MARK_TYPE_ON = 2;
+        WATER_MARK_TYPE_PANO_ON = 3;
+    }
+    
+    uint32 audio_track_num = 120;
+    
+    repeated AudioTrackInfo audio_track_info = 121;
+    message AudioTrackInfo {
+        int32 volume = 1;
+        int32 delay_time = 2;
+    }
+    
+    CloudVideoType cloud_video_type = 122;
+    enum CloudVideoType {
+        CLOUD_VIDEO_TYPE_ORIGINAL = 0;
+        CLOUD_VIDEO_TYPE_AGENT = 1;
+        CLOUD_VIDEO_TYPE_STITCHED_PANO = 2;
+        CLOUD_VIDEO_TYPE_EACUBEMAP = 3;
+        CLOUD_VIDEO_TYPE_SINGLE_FISHEYE = 4;
+    }
+    
+    ExtremeLowPowerModeType extreme_lowpower_mode_type = 123;
+    enum ExtremeLowPowerModeType {
+        EXTREME_LOWPOAER_MODE_UNKNOW = 0;
+        EXTREME_LOWPOAER_MODE_OFF = 1;
+        EXTREME_LOWPOAER_MODE_ON = 2;
+    }
+    
+    LowLightStabilizationModeType lowlight_stabilization_mode_type = 124;
+    enum LowLightStabilizationModeType {
+        LOWLIGHT_STABILIZATION_MODE_UNKNOW = 0;
+        LOWLIGHT_STABILIZATION_MODE_JITTER_BLUR_REDUTION = 1;
+        LOWLIGHT_STABILIZATION_MODE_ANTI_FLICKER = 2;
+    }
+    
+    bytes cloud_video_info = 125;
+    
+    LensModuleType lens_module_type = 126;
+    enum LensModuleType {
+        LENS_MODULE_UNKOWN = 0;
+        LENS_MODULE_SHUNYU = 1;
+        LENS_MODULE_HONGJING = 2;
+    }
+    
+    int32 file_duration_tailor_time = 127;
+    int32 blend_Angle = 128;
+    
+    FileCategory file_category = 129;
+    enum FileCategory {
+        FILE_CATEGORY_UNKNOW = 0;
+        FILE_CATEGORY_PLANE = 1;
+        FILE_CATEGORY_DOUBLE_FISH_EYE_PANO = 2;
+        FILE_CATEGORY_FISH_EYE = 3;
+        FILE_CATEGORY_WIDE_ANGLE = 4;
+        FILE_CATEGORY_DOUBLE_HALF_FISH_EYE_PANO = 5;
+        FILE_CATEGORY_EQUIRECTANGULAR_PANO = 6;
+    }
+    
+    FileRotate file_rotate = 130;
+    enum FileRotate {
+        FILE_ROTATE_UNKNOW = 0;
+        FILE_ROTATE_0 = 1;
+        FILE_ROTATE_90 = 2;
+        FILE_ROTATE_180 = 3;
+        File_ROTATE_270 = 4;
+    }
+    
+    StreamType stream_type = 131;
+    enum StreamType {
+        STREAM_TYPE_UNKNOW = 0;
+        STREAM_TYPE_SINGLE_STREAM_FILE = 1;
+        STREAM_TYPE_DUAL_STREAM_FILE = 2;
+        STREAM_TYPE_DUAL_STREAM_TRACK = 3;
+        STREAM_TYPE_DUAL_STREAM_TRACK_REVERSE = 4;
+    }
+    
+    CodecType codec_type = 132;
+    enum CodecType {
+        VIDEO_CODEC_TYPE_UNKNOW = 0;
+        VIDEO_CODEC_TYPE_H264 = 1;
+        VIDEO_CODEC_TYPE_H265 = 2;
+        VIDEO_CODEC_TYPE_MJPEG = 3;
+        VIDEO_CODEC_TYPE_H264_INTRA = 4;
+        VIDEO_CODEC_TYPE_H265_INTRA = 5;
+    }
+    
+    uint64 timelapse_interval_ms = 133;
+    bool is_pre_record = 134;
+    uint64 file_expect_bitrate = 135;
+    
+    OffsetVersion capture_offset_version = 136;
+    enum OffsetVersion {
+        OFFSET_UNKNOWN = 0;
+        OFFSET_V1 = 1;
+        OFFSET_V2 = 2;
+        OFFSET_V3 = 3;
+        OFFSET_V6 = 4;
+    }
+    
+    Vector2 expected_pano_ratio = 148;
+    
+    MCTFProcessType mctf_process_type = 149;
+    enum MCTFProcessType {
+        MCTF_PROCESS_TYPE_UNKNOW = 0;
+        MCTF_PROCESS_TYPE_OFF = 1;
+        MCTF_PROCESS_TYPE_AMBA = 2;
+        MCTF_PROCESS_TYPE_INSTA = 3;
+        MCTF_PROCESS_TYPE_PUREVIDEO = 4;
+        MCTF_PROCESS_TYPE_AMBA_INSTA = 5;
+    }
+    
+    TimelapsStorageType timelaps_storage_type = 150;
+    enum TimelapsStorageType {
+        TIMELAPS_STORAGE_TYPE_UNKNOW = 0;
+        TIMELAPS_STORAGE_TYPE_GYRO = 1;
+        TIMELAPS_STORAGE_TYPE_QUATERNION = 2;
+    }
+    
+    DirectionLockType direction_lock_type = 151;
+    enum DirectionLockType {
+        DIRECTION_LOCK_TYPE_UNKNOW = 0;
+        DIRECTION_LOCK_TYPE_OFF = 1;
+        DIRECTION_LOCK_TYPE_PANOFPVON = 2;
+    }
+    
+    DeWarpType dewarp_type = 152;
+    enum DeWarpType {
+        DEWARP_TYPE_UNKNOWN = 0;
+        DEWARP_TYPE_OFF = 1;
+        DEWARP_TYPE_ON = 2;
+    }
+    
+    UavCameraMode uav_camera_mode = 153;
+    enum UavCameraMode {
+        UAV_CAM_MODE_RECORD = 0;
+        UAV_CAM_MODE_PHOTO = 1;
+        UAV_CAM_MODE_TIMELAPSE = 2;
+        UAV_CAM_MODE_HDR_RECORD = 3;
+        UAV_CAM_MODE_SLOWMOTION = 4;
+        UAV_CAM_MODE_PHOTO_HDR = 5;
+        UAV_CAM_MODE_PHOTO_BURST = 6;
+        UAV_CAM_MODE_PHOTO_AEB = 7;
+        UAV_CAM_MODE_PHOTO_INTERVAL = 8;
+        UAV_CAM_MODE_PHOTO_STACK = 9;
+        UAV_CAM_MODE_PLAYBACK = 10;
+    }
+    
+    uint32 trim_start = 154;
+    uint32 trim_end = 155;
+    
+    RemovePurpleFringing remove_purple_fringing = 156;
+    enum RemovePurpleFringing {
+        REMOVR_PURPLE_FRINGING_NOT_SUPPORT = 0;
+        REMOVR_PURPLE_FRINGING_INNER = 1;
+        REMOVR_PURPLE_FRINGING_EXTERNAL = 2;
+    }
+    
+    CaptureRecommendStitchType capture_recommend_stitch_type = 157;
+    enum CaptureRecommendStitchType {
+        CAPTURE_RECOMMEND_STITCH_TYPE_UNKNOWN = 0;
+        CAPTURE_RECOMMEND_STITCH_TYPE_AI_2 = 1;
+    }
+    
+    IntervaRecTakeoverInfo takeover_info = 158;
+    message IntervaRecTakeoverInfo {
+        uint64 start_timestamp = 1;
+        uint64 end_timestamp = 2;
+    }
+    
+    PrsestType preset_type = 159;
+    enum PrsestType {
+        PRESET_TYPE_BASE = 0;
+        PRESET_TYPE_VLOG = 1;
+        PRESET_TYPE_CYCLING = 2;
+        PRESET_TYPE_RUNNING = 3;
+        PRESET_TYPE_PARENT_CHILD = 4;
+        PRESET_TYPE_OUTDOOR = 5;
+        PRESET_TYPE_SKIING = 6;
+        PRESET_TYPE_SURFING = 7;
+        PRESET_TYPE_STARFIELD = 8;
+        PRESET_TYPE_DIY = 9;
+    }
+    
+    FileSceneInfo file_scene_info = 160;
+    message FileSceneInfo {
+        uint32 type = 1;
+        string identity = 2;
+        uint64 caputre_timestamp = 3;
+    }
+    
+    EvMapLevel evmap_level = 161;
+    enum EvMapLevel {
+        EVMAP_LEVEL_OFF = 0;
+        EVMAP_LEVEL_LOW = 1;
+        EVMAP_LEVEL_HIGH = 2;
+    }
+    
+    AeState ae_state = 162;
+    enum AeState {
+        AE_EXTERNAL_OFF = 0;
+        AE_EXTERNAL_ON_V1 = 1;
+        AE_EXTERNAL_ON_V2 = 2;
+        AE_EXTERNAL_ON_V3 = 3;
+        AE_EXTERNAL_ON_V4 = 4;
+    }
+    
+    SharpenState sharpen_state = 163;
+    enum SharpenState {
+        SHARPEN_EXTERNAL_OFF = 0;
+        SHARPEN_EXTERNAL_ON = 1;
+    }
+    
+    AeFlickerType aeflicker_type = 164;
+    enum AeFlickerType {
+        AEFLICKER_TYPE_UNCOMPLETE = 0;
+        AEFLICKER_TYPE_NONE = 1;
+        AEFLICKER_TYPE_UNKNOW = 2;
+        AEFLICKER_TYPE_50HZ = 3;
+        AEFLICKER_TYPE_60HZ = 4;
+    }
+    
+    message AiLibVersion {
+        uint32 major = 1;
+        uint32 minor = 2;
+        uint32 patch = 3;
+    }
+    
+    message AutoClipVersion {
+        AiPlatform platform = 1;
+        AiAlgorithm algorithm = 2;
+        AiLibVersion model_ver = 3;
+        AiLibVersion svc_ver = 4;
+    }
+    
+    enum SubMediaType {
+        VIDEO_NORMAL = 0;
+        VIDEO_BULLETTIME = 1;
+        VIDEO_TIMELAPSE = 2;
+        PHOTO_NORMAL = 3;
+        PHOTO_HDR = 4;
+        PHOTO_INTERVALSHOOTING = 5;
+        VIDEO_HDR = 6;
+        PHOTO_BURST = 7;
+        VIDEO_STATIC_TIMELAPSE = 8;
+        VIDEO_TIMESHIFT = 9;
+        PHOTO_AEB_NIGHT_MODE = 10;
+        VIDEO_SUPER_NORMAL = 11;
+        VIDEO_LOOPRECORDING = 12;
+        PHOTO_STARLAPSE = 13;
+        PHOTO_PANO_MODE = 14;
+        VIDEO_FPV = 15;
+        VIDEO_MOVIE = 16;
+        VIDEO_SLOWMOTION = 17;
+        VIDEO_SELFIE = 18;
+        PHOTO_PURESHOTPLUS = 19;
+        VIDEO_PURE = 20;
+        VIDEO_STARLAPSE = 21;
+        PHOTO_STARTRAIL = 22;
+        VIDEO_DASH_CAM = 23;
+        VIDEO_VIR_PTZ = 24;
+        VIDEO_ORDINARY = 25;
+        PHOTO_ORDINARY = 26;
+        VIDEO_IEV = 27;
+    }
+    
+    enum AiAlgorithm {
+        SINGLE = 0;
+        PANO = 1;
+    }
+    
+    enum AiPlatform {
+        CV5 = 0;
+        CV22 = 1;
+        H22 = 2;
+    }
+    
+    enum AutoClipDataStorage {
+        STORAGE_TYPE_NORMAL = 0;
+        STORAGE_TYPE_LOOP = 1;
+    }
+    
+    enum FolderType {
+        FOLDERTYPE_UNKNOWN = 0;
+        FOLDERTYPE_INTERVAL_VIDEO = 1;
+    }
+}
+
+message FileExtraMetadataResp {
+    repeated string uri = 1;
+    repeated ExtraMetadata mediaData = 2;
+    uint32 total_count = 3;
+    uint32 start = 4;
+    uint32 end = 5;
+    repeated FavoriteInfo favorite_info = 6;
+    repeated uint32 map_index_list = 7;
+}
+
+enum ExtraType {
+    EXTRA_TYPE_ALL = 0;
+    EXTRA_TYPE_METADATA = 1;
+    EXTRA_TYPE_THUMBNAIL = 2;
+    EXTRA_TYPE_GYRO = 3;
+    EXTRA_TYPE_EXPOSURE = 4;
+    EXTRA_TYPE_EXT_THUMBNAIL = 5;
+    EXTRA_TYPE_FRAME_PTS = 6;
+    EXTRA_TYPE_GPS = 7;
+    EXTRA_TYPE_STAR_NUM = 8;
+    EXTRA_TYPE_AAA_DATA = 9;
+    EXTRA_TYPE_HIGHLIGHT = 10;
+    EXTRA_TYPE_AAA_SIM = 11;
+    EXTRA_TYPE_EXPOTIME_VIN1 = 12;
+    EXTRA_TYPE_MAGNETIC = 13;
+    EXTRA_TYPE_EULER = 14;
+    EXTRA_TYPE_SECGYRO = 15;
+    EXTRA_TYPE_SPEED = 16;
+    EXTRA_TYPE_TBOX = 17;
+    EXTRA_TYPE_EDITOR = 18;
+    EXTRA_TYPE_HEARTRATE = 19;
+    EXTRA_TYPE_FORWARD_DIRECTION = 20;
+    EXTRA_TYPE_UPVIEW = 21;
+    EXTRA_TYPE_SHELL_RECOGNITION_DATA = 22;
+    EXTRA_TYPE_POS = 23;
+    EXTRA_TYPE_TIMELAPSE_QUAT = 24;
+    EXTRA_TYPE_QUATERNION = 25;
+    EXTRA_TYPE_APEI = 26;
+    EXTRA_TYPE_BEISP_DYNAMICDATA = 27;
+    EXTRA_TYPE_BEISP_STATICDATA = 28;
+    EXTRA_TYPE_AEFLICKER = 29;
+    EXTRA_TYPE_VEHICAL_INFO = 30;
+    EXTRA_TYPE_TRAJECTORYSEGMENT = 31;
+    EXTRA_TYPE_PLANEVIEW = 32;
+}

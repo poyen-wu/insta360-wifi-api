@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package bmg;
+
+message CubemapProjectionDesc {
+    int32 projectType = 1;
+    int32 panoWidth = 2;
+    int32 cubeWidthExtend = 3;
+    int32 width = 4;
+}
+
+message WideAngleParam {
+    double fov = 1;
+}
+
+message ExtraMediaDataProto {
+    CubemapProjectionDesc projectionDesc = 1;
+    WideAngleParam wideAngleParam = 2;
+    bool isCompressed = 3;
+    map<string, string> additionalData = 4;
+    VideoType videoType = 5;
+}
+
+enum VideoType {
+    VIDEOTYPE_ORIGINAL = 0;
+    VIDEOTYPE_AGENT = 1;
+    VIDEOTYPE_STITCHED_PANO = 2;
+    VIDEOTYPE_EACUBEMAP = 3;
+    VIDEOTYPE_CLOUD_SINGLE_FISHEYE = 4;
+}

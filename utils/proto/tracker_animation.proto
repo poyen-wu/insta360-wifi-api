@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+import "tracker_section.proto";
+
+option objc_class_prefix = "INSPB";
+
+message TrackerAnimation {
+    TrackerSection section = 1;
+}

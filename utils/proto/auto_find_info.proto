@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+option objc_class_prefix = "INSPB";
+
+message LayerInfo {
+    string version = 1;
+    repeated string order_of_targets = 2;
+    map<string, TargetInfo> map_targets = 3;
+    
+    repeated StateInfo states = 4;
+    message StateInfo {
+        string target = 1;
+        int32 fov = 2;
+        int32 distance = 3;
+        float time_ratio = 4;
+        string frame_id = 5;
+        float yaw = 6;
+        float pitch = 7;
+        float roll = 8;
+    }
+    
+    repeated TransitionInfo transitions = 5;
+    message TransitionInfo {
+        string func = 1;
+        string from_state_id = 2;
+        string to_state_id = 3;
+    }
+    
+    double start_timestamp_ms = 6;
+    double end_timestamp_ms = 7;
+    
+    message TargetInfo {
+        string frame_id = 1;
+        int32 fov_target = 2;
+        int32 dis_target = 3;
+        int32 yaw_target = 4;
+        int32 pitch_target = 5;
+        int32 roll_target = 6;
+    }
+}

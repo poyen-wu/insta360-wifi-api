@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package com.arashivision.arvbmg.datatuple.proto;
+
+message DataTuple {
+    string str_value = 1;
+    repeated float vector_values = 2;
+    int32 int_value = 3;
+}

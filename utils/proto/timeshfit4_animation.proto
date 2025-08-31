@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+import "section.proto";
+
+option objc_class_prefix = "INSPB";
+
+message ConfigParam {
+    bool discreteMode = 1;
+    bool debugLogEnable = 2;
+    bytes debugLogPath = 3;
+    double defaultDistance = 4;
+    double defaultFov = 5;
+    double targetFov = 6;
+    double targetMinFov = 7;
+}
+
+message PairData {
+    double first = 1;
+    double second = 2;
+}
+
+message DataSource {
+    bytes identifier = 1;
+    double videoDuration = 2;
+    Section forwardSection = 3;
+    repeated Section saliencySections = 4;
+    repeated Section upviewSections = 5;
+    repeated Section symmetricSections = 6;
+    repeated PairData stillRegion = 7;
+    repeated PairData timelapseSpeedPoint = 8;
+}
+
+message TimeShift4Animation {
+    ConfigParam config = 1;
+    repeated DataSource dataSources = 2;
+}

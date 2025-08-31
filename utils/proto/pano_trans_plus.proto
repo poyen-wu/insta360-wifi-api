@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+import "basic_info.proto";
+import "time_position.proto";
+
+option objc_class_prefix = "INSPB";
+
+message PanoTransPlus {
+    bool isYFov = 1;
+    double aspect = 2;
+    TimePosition beginPosition = 3;
+    TimePosition endPosition = 4;
+    
+    LayerInfo layer_info = 5;
+    message LayerInfo {
+        string version = 1;
+        bool isDuration = 2;
+        double start_timestamp_ms = 3;
+        double end_timestamp_ms = 4;
+        double turningPoint = 5;
+        repeated CameraInfo camera_states = 6;
+        repeated ObjectInfo object_states = 7;
+        repeated BezierCubic camera_transitions = 8;
+        repeated BezierCubic object_transitions = 9;
+        AlphaTransition alphaTransition = 10;
+    }
+}

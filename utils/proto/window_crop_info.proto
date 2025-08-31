@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+option objc_class_prefix = "INSPB";
+
+message WindowCropInfo {
+    uint32 src_width = 1;
+    uint32 src_height = 2;
+    uint32 dst_width = 3;
+    uint32 dst_height = 4;
+    int32 crop_offset_x = 5;
+    int32 crop_offset_y = 6;
+}

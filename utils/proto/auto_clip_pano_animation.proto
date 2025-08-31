@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+import "section.proto";
+
+option objc_class_prefix = "INSPB";
+
+message AutoClipPanoAnimation {
+    repeated SectionWrapMap section_wrap_map = 1;
+    message SectionWrapMap {
+        string key = 1;
+        SectionWrap section_wrap = 2;
+    }
+    
+    message SectionWrap {
+        Section section = 1;
+        Section section_with_trans = 2;
+    }
+}

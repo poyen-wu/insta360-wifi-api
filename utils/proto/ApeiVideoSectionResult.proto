@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package com.arashivision.arvbmg.apei.section.proto;
+
+option objc_class_prefix = "INSPB";
+
+message View {
+    int32 frame_id = 1;
+    repeated double data = 2;
+    bool is_asteroid = 3;
+    double mul_score = 4;
+    repeated int32 attrs_index = 5;
+}
+
+message SectionView {
+    map<int32, View> ratio_views = 1;
+    double view_score = 2;
+    double confidence = 3;
+}
+
+message Section {
+    int32 id = 1;
+    repeated int32 track_id_list = 2;
+    repeated int32 frame_section_id_list = 3;
+    int32 st_frame = 4;
+    int32 ed_frame = 5;
+    int32 st_move_frame = 6;
+    int32 ed_move_frame = 7;
+    map<int32, SectionView> view_list = 8;
+    MoveType move_type = 9;
+    SectionRank section_rank = 10;
+    repeated SectionType section_types = 11;
+    float proceed_section_avg_score = 12;
+    map<int32, double> idx2view_score = 13;
+}
+
+message VideoSectionResult {
+    string model_version = 1;
+    double video_fps = 2;
+    double sample_fps = 3;
+    string video_name = 4;
+    int32 total_frames = 5;
+    repeated Section sections = 6;
+}
+
+enum MoveType {
+    NORMAL = 0;
+    ASTEROID_TO_FOCUS = 1;
+    ASTEROID_TO_LANDSCAPE = 2;
+    ASTEROID_TO_FORWARD = 3;
+    FOCUS_TO_FOCUS = 4;
+    FOCUS_TO_LANDSCAPE = 5;
+    FOCUS_TO_FORWARD = 6;
+    FOCUS_TO_ASTEROID = 7;
+    LANDSCAPE_TO_FOCUS = 8;
+    LANDSCAPE_TO_LANDSCAPE = 9;
+    LANDSCAPE_TO_FORWARD = 10;
+    LANDSCAPE_TO_ASTEROID = 11;
+    FORWARD_TO_FOCUS = 12;
+    FORWARD_TO_LANDSCAPE = 13;
+    FORWARD_TO_ASTEROID = 14;
+}
+
+enum SectionRank {
+    BEST = 0;
+    GOOD = 1;
+    NORMAL_RANK = 2;
+}
+
+enum SectionType {
+    ASTEROID = 0;
+    FOCUS1 = 1;
+    FOCUS2 = 2;
+    LANDSCAPE1 = 3;
+    LANDSCAPE2 = 4;
+    FORWARD = 5;
+    UNKNOWN = 6;
+}

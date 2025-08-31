@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+import "google/protobuf/any.proto";
+
+option objc_class_prefix = "INSPB";
+
+message Serializer {
+    string version = 1;
+    string type = 2;
+    google.protobuf.Any details = 3;
+}

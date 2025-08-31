@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package bmg;
+
+message AVRational {
+    int32 num = 1;
+    int32 den = 2;
+}
+
+message DynsVideoLayerTiled {
+    string resizeRate = 1;
+    int32 sliceGridCol = 2;
+    int32 sliceGridRow = 3;
+    int64 bitrate = 4;
+}
+
+message DynsVideoLayerNormal {
+    int32 projectionType = 1;
+    int32 width = 2;
+    int32 height = 3;
+    int64 bitrate = 4;
+}
+
+message BaseVideoConfig {
+    bool enableEac = 1;
+    int32 cubeWidthExtend = 2;
+    bool hasAudio = 3;
+    int32 panoWidth = 4;
+    double durationMs = 5;
+    AVRational framerate = 6;
+}
+
+message TiledVideoConfig {
+    int32 sliceOverlap = 1;
+    int32 sliceWidth = 2;
+    repeated DynsVideoLayerTiled pyramidLayers = 3;
+}
+
+message BackgroundVideoConfig {
+    repeated DynsVideoLayerNormal layers = 1;
+}
+
+message PlayConfig {
+    BaseVideoConfig baseVideoConfig = 1;
+    TiledVideoConfig tileVideoConfig = 2;
+    BackgroundVideoConfig backgroundVideoConfig = 3;
+}
+
+message CubePlaylist {
+    bytes serverUrls = 1;
+    PlayConfig playConfig = 2;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+import "auto_find_info.proto";
+
+option objc_class_prefix = "INSPB";
+
+message AutoFind {
+    bool isYFov = 1;
+    double aspect = 2;
+    LayerInfo layer_info = 3;
+}

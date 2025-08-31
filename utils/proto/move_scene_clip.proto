@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+import "time_scale.proto";
+
+option objc_class_prefix = "INSPB";
+
+message MoveSceneClip {
+    double start_time = 1;
+    double end_time = 2;
+    repeated TimeScale timescale = 3;
+}

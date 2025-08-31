@@ -1,0 +1,155 @@
+syntax = "proto3";
+
+message PbMsg_Rect2d {
+    double topleft_x = 1;
+    double topleft_y = 2;
+    double width = 3;
+    double height = 4;
+}
+
+message PbMsg_DetResult {
+    repeated float confs = 1;
+    repeated PbMsg_Rect2d bbox = 2;
+    repeated string names = 3;
+}
+
+message PbMsg_SampledMergedDetItem {
+    repeated int32 frame_ids = 1;
+    repeated float pcd_scores = 2;
+    repeated float animal_scores = 3;
+    repeated float face_scores = 4;
+    repeated float face_distort_scores = 5;
+    repeated float baby_scores = 6;
+    repeated PbMsg_DetResult pcd_res = 7;
+    repeated PbMsg_DetResult animal_res = 8;
+    repeated PbMsg_DetResult face_res = 9;
+    repeated PbMsg_DetResult face_distort_res = 10;
+    repeated PbMsg_DetResult baby_res = 11;
+}
+
+message PbMsg_SampledSceneryDetItem {
+    repeated int32 frame_ids = 1;
+    repeated float scores = 2;
+    repeated PbMsg_DetResult res = 3;
+}
+
+message PbMsg_SampledModuleItem {
+    repeated int32 frame_ids = 1;
+    repeated float scores = 2;
+}
+
+message PbMsg_FloatVector {
+    repeated float values = 1;
+}
+
+message PbMsg_SampledDedupFeat {
+    repeated int32 frame_ids = 1;
+    repeated PbMsg_FloatVector dedup_feats = 2;
+}
+
+message PbMsg_SampledSceneItem {
+    repeated int32 frame_ids = 1;
+    repeated PbMsg_FloatVector scores = 2;
+}
+
+message PbMsg_VideoInfo {
+    float fps = 1;
+    int32 height = 2;
+    int32 width = 3;
+    int32 frame_count = 4;
+    string video_name = 5;
+    PbMsg_CAMERA_MODE usr_mode = 6;
+    PbMsg_CAMERA_MODE alg_mode = 7;
+}
+
+message PbMsg_AEVersion {
+    int32 major = 1;
+    int32 minor = 2;
+    int32 patch = 3;
+}
+
+message PbMsg_SampledModuleInfo {
+    PbMsg_SampledMergedDetItem merged_det = 1;
+    PbMsg_SampledSceneryDetItem scenery_det = 2;
+    PbMsg_SampledModuleItem emotion = 3;
+    PbMsg_SampledModuleItem occlusion = 4;
+    PbMsg_SampledModuleItem relic = 5;
+    PbMsg_SampledModuleItem pov = 6;
+    PbMsg_SampledModuleItem places = 7;
+    PbMsg_SampledSceneItem video_scene = 8;
+    PbMsg_SampledModuleItem motion = 9;
+    PbMsg_SampledModuleItem shake = 10;
+    PbMsg_SampledModuleItem highlight = 11;
+    PbMsg_SampledModuleItem doing = 12;
+    PbMsg_SampledModuleItem hl_waste = 13;
+    PbMsg_SampledModuleItem hl_waste_filter = 14;
+    PbMsg_SampledDedupFeat dedup_feat = 15;
+    PbMsg_VideoInfo video_info = 16;
+    PbMsg_SampledModuleItem waste = 17;
+    PbMsg_SampledModuleItem pano_dewaste = 18;
+    PbMsg_SampledDedupFeat sscd = 19;
+    PbMsg_SampledModuleItem figure_cut = 20;
+    PbMsg_AEVersion version = 21;
+}
+
+message PbMsg_PlaneFrontResult {
+    repeated int32 pending_area = 1;
+    repeated int32 finished_area = 2;
+    PbMsg_SampledModuleInfo sampled_info = 3;
+}
+
+message PbMsg_SpecialFrontResult {
+    int32 section_first = 1;
+    int32 section_second = 2;
+    PbMsg_SampledModuleInfo sampled_info = 3;
+}
+
+message PbMsg_PanoVideoSectionInfo {
+    int32 section_id = 1;
+    int32 start_frame = 2;
+    int32 end_frame = 3;
+    int32 start_move_frame = 4;
+    int32 end_move_frame = 5;
+    int32 move_type = 6;
+    int32 section_rank = 7;
+    repeated int32 section_types = 8;
+    
+    repeated View view_list = 9;
+    message View {
+        float score = 1;
+        float confidence = 2;
+    }
+}
+
+message PbMsg_TrackFrontInfo {
+    PbMsg_PanoVideoSectionInfo section_info = 1;
+    PbMsg_SampledModuleInfo sampled_info = 2;
+}
+
+message PbMsg_PanoFrontResult {
+    repeated PbMsg_TrackFrontInfo pano_front_result = 1;
+}
+
+message PbMsg_SaveFrontendInfo {
+    string video_name = 1;
+    PbMsg_PlaneFrontResult plane_sampled_info = 2;
+    string type = 3;
+    PbMsg_PanoFrontResult pano_sampled_info = 4;
+    PbMsg_SpecialFrontResult special_sampled_info = 5;
+    PbMsg_AEVersion version = 6;
+}
+
+enum PbMsg_CAMERA_MODE {
+    kNone = 0;
+    kBASE = 1;
+    kVLOG = 2;
+    kBABY = 3;
+    kCYCLING = 4;
+    kRUNNING = 5;
+    kOUTDOOR = 6;
+    kSTARRY_NIGHT = 7;
+    kSKIING = 8;
+    kSURFING = 9;
+    kPET = 10;
+    kDRIVING = 11;
+}

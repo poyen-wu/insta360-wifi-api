@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package com.arashivision.arvbmg.apei.proto;
+
+option objc_class_prefix = "INSPB";
+
+message ApeiModelResult {
+    int32 labels = 1;
+    double scores = 2;
+    double view_scores = 3;
+    repeated double attrs = 4;
+    repeated double sfovs = 5;
+}
+
+message ApeiFrontEndResult {
+    VideoInfo videoInfo = 1;
+    ApeiResultMap resultMap = 2;
+}
+
+message VideoInfo {
+    int32 totalFrameCount = 1;
+    int32 videoFps = 2;
+    int32 sampleFps = 3;
+}
+
+message ApeiResultMap {
+    repeated ApeiResultEntry entries = 1;
+    string model_version = 2;
+    int32 come_from = 3;
+}
+
+message ApeiResultEntry {
+    int32 key = 1;
+    repeated ApeiModelResult value = 2;
+}

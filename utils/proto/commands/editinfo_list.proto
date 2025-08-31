@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+option objc_class_prefix = "INSPB";
+
+message FavoriteInfo {
+    bool playback_is_favorite = 1;
+    int64 modify_timestamp = 2;
+}
+
+message AnalyzeInfo {
+    bool analyze_is_finish = 1;
+    bool analyze_is_pause = 2;
+    int64 analyze_timestamp = 3;
+}
+
+message EditFileInfo {
+    string file_path = 1;
+    FavoriteInfo favorite_info = 2;
+    AnalyzeInfo analyze_info = 3;
+}
+
+message EditFileInfoList {
+    repeated EditFileInfo edit_file_info_list = 1;
+}

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+message PBGyroData {
+    int64 timeoffset = 1;
+    bool isApply = 2;
+    int32 count = 3;
+    PBGyroDataType type = 4;
+    bytes gyroData = 7;
+}
+
+message PBExtraData {
+    PBGyroData gyrodata = 1;
+}
+
+enum PBGyroDataType {
+    PBGyroDataType_nano = 0;
+    PBGyroDataType_nano2 = 1;
+    PBGyroDataType_air = 2;
+    PBGyroDataType_air2 = 3;
+}

@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package fcpProtobuf;
+
+message PBMetaData {
+    int32 ISO = 1;
+    uint32 EV = 2;
+    double shutter = 3;
+    int32 WB = 4;
+    uint64 fileSize = 5;
+    uint32 fileTime = 6;
+    string fileType = 7;
+    int32 resolution = 8;
+    int32 frameRate = 9;
+    string filter = 10;
+    string befilter = 11;
+    double trim = 12;
+    int32 version = 13;
+    bool isInit = 14;
+    string cameraName = 15;
+    string offset = 16;
+    double firstTimestampMs = 17;
+    double delayTimeMs = 18;
+    double sweepTimeMs = 19;
+    int32 sweepMode = 20;
+    double first_frame_time = 21;
+    double alignment_time = 22;
+    double xfov = 23;
+    double yfov = 24;
+    double gyro_quency = 25;
+    bool is_need_scene_recognition = 26;
+    
+    SubMediaType subMediaType = 27;
+    enum SubMediaType {
+        VIDEO_NORMAL = 0;
+        VIDEO_BULLETTIME = 1;
+        VIDEO_TIMELAPSE = 2;
+        PHOTO_NORMAL = 3;
+        PHOTO_HDR = 4;
+        PHOTO_INTERVALSHOOTING = 5;
+        VIDEO_HDR = 6;
+        PHOTO_BURST = 7;
+        VIDEO_STATIC_TIMELAPSE = 8;
+        VIDEO_TIMESHIFT = 9;
+        PHOTO_AEB_NIGHT_MODE = 10;
+        VIDEO_SUPER_NORMAL = 11;
+        VIDEO_LOOPRECORDING = 12;
+        PHOTO_STARLAPSE = 13;
+        PHOTO_PANO_MODE = 14;
+        VIDEO_FPV = 15;
+        VIDEO_MOVIE = 16;
+        VIDEO_SLOWMOTION = 17;
+        VIDEO_SELFIE = 18;
+        PHOTO_PURESHOTPLUS = 19;
+        VIDEO_PURE = 20;
+        VIDEO_STARLAPSE = 21;
+        PHOTO_STARTRAIL = 22;
+        VIDEO_BASKETBALL = 23;
+    }
+    
+    BasketballType basketballType = 28;
+    enum BasketballType {
+        BASKET_UNDEFINED = 0;
+        FULL_ORIGINAL = 1;
+        HALF_ORIGINAL = 2;
+        FULL_HIGHLIGHT = 3;
+        HALF_HIGHLIGHT = 4;
+    }
+    
+    BasketballTeam basketballTeam = 29;
+    enum BasketballTeam {
+        TEAM_UNDEFINED = 0;
+        HOME_TEAM = 1;
+        GUEST_TEAM = 2;
+    }
+    
+    repeated double goal_times = 30;
+}

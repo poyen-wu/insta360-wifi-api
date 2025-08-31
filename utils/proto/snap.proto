@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+option objc_class_prefix = "INSPB";
+
+message SnapUnsmoothData {
+    double device_time_ms = 1;
+    double frame_time_ms = 2;
+    float yaw = 3;
+    float roll = 4;
+    float pitch = 5;
+    float fov = 6;
+    float distance = 7;
+    
+    SnapMode mode = 8;
+    enum SnapMode {
+        head_tracker_plus_gesture = 0;
+        forward_direction = 1;
+        hero_follow = 2;
+        panoramic_view = 3;
+        joystick = 4;
+        deeptracker = 5;
+        surround_180_right = 6;
+        surround_180_left = 7;
+        asteroid_rotate = 8;
+    }
+    
+    double src_time_ms = 9;
+    string version = 10;
+}
+
+message SnapData {
+    repeated SnapUnsmoothData snap_unsmooth_data = 1;
+}

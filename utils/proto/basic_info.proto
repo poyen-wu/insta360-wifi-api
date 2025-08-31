@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+option objc_class_prefix = "INSPB";
+
+message ObjectInfo {
+    float time_ratio = 1;
+    string frame_id = 2;
+    float yaw = 3;
+    float pitch = 4;
+    float roll = 5;
+}
+
+message CameraInfo {
+    float fov = 1;
+    float distance = 2;
+    ObjectInfo object_info = 3;
+}
+
+message TransitionInfo {
+    string func = 1;
+    string from_state_id = 2;
+    string to_state_id = 3;
+}
+
+message BezierCubic {
+    string from_state_id = 1;
+    string to_state_id = 2;
+    double bazier_ctrl_x1 = 3;
+    double bazier_ctrl_y1 = 4;
+    double bazier_ctrl_x2 = 5;
+    double bazier_ctrl_y2 = 6;
+}
+
+message AlphaTransition {
+    double duration = 1;
+    string transitionFile = 2;
+}

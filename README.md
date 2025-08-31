@@ -1,3 +1,9 @@
+## About this fork
+This fork adds the proto files needed to run the script.
+The proto files were generated with Android app version 2.8.1.
+Note that the protobuf definitions doesn't seem to live in libOne.so anymore, I simply loop the script through all .so files in the extracted directory.
+Tested and working for Insta360 Ace Pro firmware v1.0.52.
+
 # insta360-wifi-api
 
 **Python scripts to talk to Insta360 action cameras using the WiFi API**

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+import "model_state.proto";
+
+option objc_class_prefix = "INSPB";
+
+message StrangeSection {
+    repeated ModelState srcState = 1;
+    double beginPosition = 2;
+    double endPosition = 3;
+    float pitch = 4;
+}

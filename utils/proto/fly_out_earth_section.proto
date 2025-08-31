@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+import "model_state.proto";
+import "time_position.proto";
+
+option objc_class_prefix = "INSPB";
+
+message FlyOutEarthSection {
+    repeated ModelState srcState = 1;
+    TimePosition beginPosition = 2;
+    TimePosition endPosition = 3;
+    TimePosition repeatBeginPosition = 4;
+    TimePosition repeatEndPosition = 5;
+}

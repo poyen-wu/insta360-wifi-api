@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package bmgstab;
+
+option objc_class_prefix = "INSPB";
+
+message PBRawGyroData {
+    int32 gyro_type = 1;
+    bytes gyrotime_offsetlist = 2;
+    bytes gyro_size_list = 3;
+    bytes gyro_list = 4;
+    int32 elemnet_size = 5;
+}
+
+message PBQuaternionData {
+    int32 count = 1;
+    bytes mean_quat = 2;
+    bytes time_and_quat = 3;
+}
+
+message PBIMUData {
+    PBQuaternionData quaternion_data = 1;
+}
+
+message PBExposureData {
+    double frame_rate = 1;
+    double timestamp_coef = 2;
+    bytes exposure_offsetlist = 3;
+    bytes exposure_buffer = 4;
+}
+
+message PBTimelapseData {
+    double frame_rate = 1;
+    double timestamp_coef = 2;
+    string camera_name = 3;
+    string fw_version = 4;
+    bytes timelapse_buffer = 5;
+}
+
+message PBTimemapData {
+    bytes timemap_buffer = 1;
+}
+
+message PBTimeConverterData {
+    bytes gyrotime_offsetlist = 1;
+    int32 exposure_count = 2;
+    PBExposureData exposure1 = 3;
+    PBExposureData exposure2 = 4;
+    PBTimelapseData timelapse = 6;
+    PBTimemapData timemap = 8;
+    bool method_exposure = 9;
+    double delay_time = 10;
+    bool froze = 11;
+    double froze_timestamp = 12;
+    PBTimemapData subTimemap = 13;
+}
+
+message PBTimeData {
+    PBTimeConverterData time_data = 1;
+}
+
+message PBSettingData {
+    bool darklightStabOptimize = 1;
+    bool fisheyeModelRotationSet = 2;
+    bytes fisheyeModelRotation = 3;
+    string lensOffset = 4;
+    int32 stabType = 5;
+    int32 footageFilterType = 6;
+    double exposureOffsetMs = 7;
+    bool enableAutoRoll = 8;
+    bool enableOpenGLMode = 9;
+    bool enableNightMode = 10;
+    bool enableGravityCalib_hasValue = 11;
+    bool enableGravityCalib = 12;
+    bool autoFovRange_hasValue = 13;
+    double autoFovRange = 14;
+    bool renderParam_hasValue = 15;
+    double sphereRadius = 16;
+    double distance = 17;
+    double camHorizontalFovRad = 18;
+    double heightWidthRatio = 19;
+    double sweepTimeMs = 20;
+    double gyroStartTimeS = 21;
+    double gyroEndTimeS = 22;
+    bool isRawGyroFormat = 23;
+    int32 accRange = 24;
+    int32 filterType = 25;
+    double videoDurationS = 26;
+    double frameRate = 27;
+    bytes segmentDurationMs = 28;
+}
+
+message PBCompatibleData {
+    bytes old_cache_buffer = 1;
+}

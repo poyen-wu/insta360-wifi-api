@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+option objc_class_prefix = "INSPB";
+
+message TimePosition {
+    double srcTimeMs = 1;
+    double srcRepeatTimeMs = 2;
+    double mediaTimeMs = 3;
+}

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+option objc_class_prefix = "INSPB";
+
+message FrameInfo {
+    int32 format = 1;
+    string name = 2;
+    int32 offset = 3;
+    int32 size = 4;
+    int32 type = 5;
+}
+
+message ExtraDataInfo {
+    repeated FrameInfo frameInfo = 1;
+    string offset = 2;
+    int64 startPos = 3;
+    int32 totalSize = 4;
+    int32 version = 5;
+}
+
+message VideoFrameRate {
+    int32 den = 1;
+    int32 num = 2;
+}
+
+message VideoInfo {
+    double audioBitrate = 1;
+    int32 audioChannelCount = 2;
+    int32 audioChannelLayout = 3;
+    int32 audioCodec = 4;
+    string audioCodecName = 5;
+    double audioDurationS = 6;
+    int32 audioSampleRate = 7;
+    double bitrate = 8;
+    int32 codecID = 9;
+    int32 colorRange = 10;
+    int32 colorSpace = 11;
+    bool hasAudio = 12;
+    bool hasSpatialAudio = 13;
+    bool hasVideo = 14;
+    int32 height = 15;
+    bool isNormalPlane = 16;
+    bool isPanoramaFormat = 17;
+    bool isVideo = 18;
+    string metadata = 19;
+    int32 planeRotationDegree = 20;
+    string sphereMappingTypeName = 21;
+    string stereo3dTypeName = 22;
+    double videoBitrate = 23;
+    int32 videoCodec = 24;
+    string videoCodecName = 25;
+    double videoDurationS = 26;
+    double videoFrameRate = 27;
+    VideoFrameRate videoFrameRate2 = 28;
+    double videoRealBaseFramerate = 29;
+    double videoRotate = 30;
+    int32 width = 31;
+}
+
+message VideoAssert {
+    ExtraDataInfo extraDataInfo = 1;
+    VideoInfo videoInfo = 2;
+}

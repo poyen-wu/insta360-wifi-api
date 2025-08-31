@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package insta360.messages;
+
+option objc_class_prefix = "INSPB";
+
+message ModelState {
+    ValueType type = 1;
+    enum ValueType {
+        normal = 0;
+        OnlyOrientation = 1;
+        track = 2;
+    }
+    
+    double srcTimeMs = 2;
+    float fov = 3;
+    float distance = 4;
+    bytes quat = 5;
+    bytes rect = 6;
+    float preRoll = 7;
+}
